@@ -16,8 +16,8 @@ public class ConexaoBD {
     private Connection conn = null;
     private String url = "jdbc:mysql://localhost:3306/novarota";
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String user = "netbeans";
-    private String password = "netbeans";
+    private String user = "root";
+    private String password = "root";
     
     public void Insert(String tabela, int id, String nome, String endereco){
         try {

@@ -39,6 +39,15 @@ public class GerenciadorCliente implements ActionListener{
                 c = guicliente.getCliente();
                 daocliente.Remove(c);
                 break;
+                
+            case "alterar":
+                c = guicliente.getCliente();
+                daocliente.Update(c);
+                break;
+            case "mostrar":
+                c = guicliente.getCliente();
+                daocliente.Display();
+                break;
         }
     }
     

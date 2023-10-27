@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author Felipe
  */
 public class ConnectionFactory {
-    private String url = "jdbc:mysql://localhost:3306/teste";
+    private String url = "jdbc:mysql://localhost:3306/novarota";
     private String user = "root";
     private String password = "root";
     
