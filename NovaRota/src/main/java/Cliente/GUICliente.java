@@ -4,12 +4,15 @@
  */
 package Cliente;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Felipe
  */
 public class GUICliente extends javax.swing.JFrame {
-
     /**
      * Creates new form GUICliente
      */
@@ -17,13 +20,15 @@ public class GUICliente extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
     }
-    
-    public void addListener(GerenciadorCliente gc){
+
+    public void addListener(GerenciadorCliente gc) {
         JBTcadastrar.addActionListener(gc);
         JBTdeletar.addActionListener(gc);
+        JBTalterar.addActionListener(gc);
+        JBTconsultar.addActionListener(gc);
     }
-    
-    public Cliente getCliente(){
+
+    public Cliente getCliente() {
         Cliente c = new Cliente();
         c.setIDCliente(Integer.parseInt(JTFid.getText()));
         c.setNome(JTFnome.getText());
@@ -32,10 +37,34 @@ public class GUICliente extends javax.swing.JFrame {
         return c;
     }
     
-    public void setCliente(Cliente c){
-        JTFid.setText(String.valueOf(c.getIDCliente()));
-        JTFnome.setText(c.getNome());
-        JTFemail.setText(c.getEmail());
+    public int getID(){
+        return Integer.parseInt(JTFid.getText());
+    }
+    
+    public void limpar(){
+        JTFid.setText("");
+        JTFnome.setText("");
+        JTFcpf.setText("");
+        JTFemail.setText("");
+    }
+
+    public void consultar() {
+        try {
+            DAOCliente objclientedao = new DAOCliente();
+            DefaultTableModel model = (DefaultTableModel) JTBcliente.getModel();
+            ArrayList<Cliente> lista = objclientedao.Display();
+            model.setRowCount(0);
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getIDCliente(),
+                    lista.get(num).getNome(),
+                    lista.get(num).getEmail(),
+                    lista.get(num).getCpf()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -47,28 +76,110 @@ public class GUICliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        JBTcadastrar = new javax.swing.JButton();
+        JBTdeletar = new javax.swing.JButton();
+        JBTalterar = new javax.swing.JButton();
+        JLcpf = new javax.swing.JLabel();
         JLtitulo = new javax.swing.JLabel();
+        JTFcpf = new javax.swing.JTextField();
         JLid = new javax.swing.JLabel();
+        JBTconsultar = new javax.swing.JButton();
         JLnome = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JTBcliente = new javax.swing.JTable();
         JLemail = new javax.swing.JLabel();
         JTFid = new javax.swing.JTextField();
         JTFnome = new javax.swing.JTextField();
         JTFemail = new javax.swing.JTextField();
-        JBTcadastrar = new javax.swing.JButton();
-        JBTdeletar = new javax.swing.JButton();
-        JLcpf = new javax.swing.JLabel();
-        JTFcpf = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
-        setPreferredSize(new java.awt.Dimension(500, 500));
 
-        JLtitulo.setText("Cliente");
+        jPanel1.setBackground(new java.awt.Color(36, 123, 160));
 
+        JBTcadastrar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTcadastrar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTcadastrar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTcadastrar.setText("Cadastrar");
+        JBTcadastrar.setName("cadastrar"); // NOI18N
+        JBTcadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTcadastrarActionPerformed(evt);
+            }
+        });
+
+        JBTdeletar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTdeletar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTdeletar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTdeletar.setText("Deletar");
+        JBTdeletar.setName("deletar"); // NOI18N
+        JBTdeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTdeletarActionPerformed(evt);
+            }
+        });
+
+        JBTalterar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTalterar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTalterar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTalterar.setText("Alterar");
+        JBTalterar.setName("alterar");
+        JBTalterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTalterarActionPerformed(evt);
+            }
+        });
+
+        JLcpf.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLcpf.setForeground(new java.awt.Color(247, 255, 247));
+        JLcpf.setText("CPF:");
+
+        JLtitulo.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
+        JLtitulo.setForeground(new java.awt.Color(247, 255, 247));
+        JLtitulo.setText("Gerenciamento de Cliente");
+
+        JLid.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLid.setForeground(new java.awt.Color(247, 255, 247));
         JLid.setText("ID Cliente:");
 
+        JBTconsultar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTconsultar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTconsultar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTconsultar.setText("Consultar");
+        JBTconsultar.setName("mostrar"); // NOI18N
+        JBTconsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTconsultarActionPerformed(evt);
+            }
+        });
+
+        JLnome.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLnome.setForeground(new java.awt.Color(247, 255, 247));
         JLnome.setText("Nome:");
 
+        JTBcliente.setBackground(new java.awt.Color(247, 255, 247));
+        JTBcliente.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JTBcliente.setForeground(new java.awt.Color(36, 123, 160));
+        JTBcliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "E-Mail", "CPF"
+            }
+        ));
+        JTBcliente.setSelectionForeground(new java.awt.Color(36, 123, 160));
+        JTBcliente.setShowGrid(true);
+        jScrollPane1.setViewportView(JTBcliente);
+
+        JLemail.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLemail.setForeground(new java.awt.Color(247, 255, 247));
         JLemail.setText("E-Mail:");
 
         JTFid.setName("JTFid"); // NOI18N
@@ -78,75 +189,113 @@ public class GUICliente extends javax.swing.JFrame {
             }
         });
 
-        JBTcadastrar.setText("Cadastrar");
-        JBTcadastrar.setName("cadastrar"); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Impact", 3, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(247, 255, 247));
+        jLabel2.setText("NovaRota");
 
-        JBTdeletar.setText("Deletar");
-        JBTdeletar.setName("deletar"); // NOI18N
+        jSeparator1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        JLcpf.setText("CPF:");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(JBTcadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTdeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTconsultar)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JLcpf)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(JLnome)
+                                            .addGap(19, 19, 19))
+                                        .addComponent(JLid, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(JLemail))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(JTFnome)
+                                            .addComponent(JTFemail)
+                                            .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(JLtitulo))
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JLtitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLid)
+                    .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLnome)
+                    .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLemail)
+                    .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLcpf)
+                    .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBTdeletar)
+                    .addComponent(JBTcadastrar)
+                    .addComponent(JBTalterar)
+                    .addComponent(JBTconsultar))
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
+
+        JBTcadastrar.getAccessibleContext().setAccessibleName("cadastrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(JLtitulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JLemail)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JLid)
-                                    .addComponent(JLnome))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(JTFemail)
-                                            .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(JTFcpf, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))))
-                            .addComponent(JLcpf)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JBTcadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JBTdeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(JLtitulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLid)
-                    .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLnome)
-                    .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLemail)
-                    .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLcpf)
-                    .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(JBTcadastrar)
-                .addGap(18, 18, 18)
-                .addComponent(JBTdeletar)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,6 +304,22 @@ public class GUICliente extends javax.swing.JFrame {
     private void JTFidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFidActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFidActionPerformed
+
+    private void JBTcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTcadastrarActionPerformed
+        
+    }//GEN-LAST:event_JBTcadastrarActionPerformed
+
+    private void JBTalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTalterarActionPerformed
+        
+    }//GEN-LAST:event_JBTalterarActionPerformed
+
+    private void JBTdeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTdeletarActionPerformed
+        
+    }//GEN-LAST:event_JBTdeletarActionPerformed
+
+    private void JBTconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTconsultarActionPerformed
+       
+    }//GEN-LAST:event_JBTconsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,6 +347,7 @@ public class GUICliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUICliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -192,16 +358,23 @@ public class GUICliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBTalterar;
     private javax.swing.JButton JBTcadastrar;
+    private javax.swing.JButton JBTconsultar;
     private javax.swing.JButton JBTdeletar;
     private javax.swing.JLabel JLcpf;
     private javax.swing.JLabel JLemail;
     private javax.swing.JLabel JLid;
     private javax.swing.JLabel JLnome;
     private javax.swing.JLabel JLtitulo;
+    private javax.swing.JTable JTBcliente;
     private javax.swing.JTextField JTFcpf;
     private javax.swing.JTextField JTFemail;
     private javax.swing.JTextField JTFid;
     private javax.swing.JTextField JTFnome;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

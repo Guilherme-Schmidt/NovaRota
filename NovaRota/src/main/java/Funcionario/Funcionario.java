@@ -12,11 +12,19 @@ import Usuario.Usuario;
  */
 public class Funcionario extends Usuario{
     private int idfuncionario;
-
+    private String senha;
+    
     public int getIDFuncionario() {
         return idfuncionario;
     }
     public void setIDFuncionario(int idfuncionario) {
         this.idfuncionario = idfuncionario;
+    }
+    
+    public String getSenha(){
+        return senha;
+    }
+    public void setSenha(String senha){
+        this.senha = senha;
     }
 }
