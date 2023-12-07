@@ -26,6 +26,7 @@ public class GUICliente extends javax.swing.JFrame {
         JBTcadastrar.addActionListener(gc);
         JBTdeletar.addActionListener(gc);
         JBTalterar.addActionListener(gc);
+        JBTconsultar.addActionListener(gc);
     }
 
     public Cliente getCliente() {
@@ -41,6 +42,11 @@ public class GUICliente extends javax.swing.JFrame {
         JTFid.setText(String.valueOf(c.getIDCliente()));
         JTFnome.setText(c.getNome());
         JTFemail.setText(c.getEmail());
+        JTFcpf.setText(String.valueOf(c.getCpf()));
+    }
+    
+    public int getID(){
+        return Integer.parseInt(JTFid.getText());
     }
 
     /**
@@ -113,6 +119,7 @@ public class GUICliente extends javax.swing.JFrame {
         JLcpf.setText("CPF:");
 
         JBTconsultar.setText("Consultar");
+        JBTconsultar.setName("mostrar"); // NOI18N
         JBTconsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBTconsultarActionPerformed(evt);
@@ -206,6 +213,8 @@ public class GUICliente extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        JBTcadastrar.getAccessibleContext().setAccessibleName("cadastrar");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -226,7 +235,7 @@ public class GUICliente extends javax.swing.JFrame {
     }//GEN-LAST:event_JBTdeletarActionPerformed
 
     private void JBTconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTconsultarActionPerformed
-        consult();
+       //consult();
     }//GEN-LAST:event_JBTconsultarActionPerformed
 
     /**
@@ -257,14 +266,15 @@ public class GUICliente extends javax.swing.JFrame {
         DAOCliente objClienteDAO = new DAOCliente();
         objClienteDAO.Update(objcliente);
     }
-
+    /*
     private void consult() {
         try {
             DAOCliente objclientedao = new DAOCliente();
-
+            Cliente objcliente = new Cliente();
+            
             DefaultTableModel model = (DefaultTableModel) JTBcliente.getModel();
 
-            ArrayList<Cliente> lista = objclientedao.Display();
+            ArrayList<Cliente> lista = objclientedao.Display(this.getID());
 
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
@@ -278,6 +288,7 @@ public class GUICliente extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
     }
+   */
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

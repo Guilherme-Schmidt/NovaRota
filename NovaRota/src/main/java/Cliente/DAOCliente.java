@@ -18,7 +18,7 @@ import java.util.HashSet;
 public class DAOCliente {
 
     ResultSet rs;
-    ArrayList<Cliente> lista = new ArrayList<>();
+   
 
     private Connection link;
 
@@ -73,25 +73,24 @@ public class DAOCliente {
         }
     }
 
-    public ArrayList<Cliente> Display() {
-        String sql = "select * from Cliente where cli_id = ?";
+    public Cliente Display(int id) {
+        Cliente objcliente = new Cliente();
+        String sql = "select * from cliente where cli_id = ?";
 
         try {
             PreparedStatement stmt = link.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                Cliente objcliente = new Cliente();
-                objcliente.setInt(1, objcliente.getIDCliente());
+                objcliente.setIDCliente(id);
+                stmt.setInt(1, objcliente.getIDCliente());
                 objcliente.setNome(rs.getString("cli_nome"));
                 objcliente.setEmail(rs.getString("cli_email"));
                 objcliente.setCpf(rs.getLong("cli_cpf"));
-
-                lista.add(objcliente);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return lista;
+        return objcliente;
     }
 
 }

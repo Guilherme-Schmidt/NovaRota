@@ -2,39 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Cliente;
+package Administrador;
 
+import Funcionario.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
  *
- * @author Felipe
+ * @author USUARIO
  */
-public class GerenciadorCliente implements ActionListener{
-    private GUICliente guicliente;
-    private DAOCliente daocliente;
-    private Cliente c;
+public class GerenciadorAdministrador implements ActionListener {
+
+    private GUIAdministrador guiadministrador;
+    private DAOAdministrador daoadministrador;
+    private Administrador a;
+    private Funcionario f;
     
-    public GerenciadorCliente(){
-        guicliente = new GUICliente();
-        guicliente.addListener(this);
-        daocliente = new DAOCliente();
-        c = new Cliente();
+    
+    public GerenciadorAdministrador(){
+        guiadministrador = new GUIAdministrador();
+        guiadministrador.addListener(this);
+        daoadministrador = new DAOAdministrador();
+        a = new Administrador();
+        f = new Funcionario();
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(ActionEvent e) {
         JButton botaopressionado = (JButton)e.getSource();
         String opc = botaopressionado.getName();
         
         switch(opc){
             case "cadastrar":
-                c = guicliente.getCliente();
-                daocliente.Create(c);
+                f = guiadministrador.getFuncionario();
+                daoadministrador.Create(f);
+                System.out.println("Entrou");
                 break;
-                
+                /*
             case "deletar":
                 c = guicliente.getCliente();
                 daocliente.Remove(c);
@@ -52,8 +57,7 @@ public class GerenciadorCliente implements ActionListener{
                 c = daocliente.Display(id);
                 guicliente.setCliente(c);
                 break;
-
+*/
         }
     }
-    
 }
