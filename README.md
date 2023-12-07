@@ -17,3 +17,9 @@ Projeto elaborado na disciplina de Programação Orientada a Objetos 2 do curso 
 
 **Tecnologias:** Java 17, MYSQL
 
+
+## Autores
+
+- [@Felipe](https://github.com/FelipeBataglini)
+- [@Guilherme](https://github.com/Guilherme-Schmidt)
+- [@Lucas](https://github.com/RedMistc)
