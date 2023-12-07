@@ -14,8 +14,8 @@ public class Locacao {
     private int idcliente;
     private int idfuncionario;
     private String placa;
-    private int datalocacao;
-    private int datadevolucao;
+    private String datalocacao;
+    private String datadevolucao;
 
     public int getIdlocacao() {
         return idlocacao;
@@ -45,17 +45,17 @@ public class Locacao {
         this.placa = placa;
     }
 
-    public int getDatalocacao() {
+    public String getDatalocacao() {
         return datalocacao;
     }
-    public void setDatalocacao(int datalocacao) {
+    public void setDatalocacao(String datalocacao) {
         this.datalocacao = datalocacao;
     }
 
-    public int getDatadevolucao() {
+    public String getDatadevolucao() {
         return datadevolucao;
     }
-    public void setDatadevolucao(int datadevolucao) {
+    public void setDatadevolucao(String datadevolucao) {
         this.datadevolucao = datadevolucao;
     }
 }

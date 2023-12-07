@@ -4,7 +4,6 @@
  */
 package Administrador;
 
-import Funcionario.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -14,50 +13,41 @@ import javax.swing.JButton;
  * @author USUARIO
  */
 public class GerenciadorAdministrador implements ActionListener {
-
     private GUIAdministrador guiadministrador;
     private DAOAdministrador daoadministrador;
     private Administrador a;
-    private Funcionario f;
-    
-    
-    public GerenciadorAdministrador(){
+
+    public GerenciadorAdministrador() {
         guiadministrador = new GUIAdministrador();
         guiadministrador.addListener(this);
         daoadministrador = new DAOAdministrador();
         a = new Administrador();
-        f = new Funcionario();
     }
-    
-      public void actionPerformed(ActionEvent e) {
-        JButton botaopressionado = (JButton)e.getSource();
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton botaopressionado = (JButton) e.getSource();
         String opc = botaopressionado.getName();
-        
-        switch(opc){
+        switch (opc) {
             case "cadastrar":
-                f = guiadministrador.getFuncionario();
-                daoadministrador.Create(f);
-                System.out.println("Entrou");
+                a = guiadministrador.getAdministrador();
+                daoadministrador.Create(a);
+                guiadministrador.limpar();
                 break;
-                /*
             case "deletar":
-                c = guicliente.getCliente();
-                daocliente.Remove(c);
+                int idAdm = guiadministrador.getID();
+                daoadministrador.Remove(idAdm);
+                guiadministrador.limpar();
                 break;
-                
             case "alterar":
-                c = guicliente.getCliente();
-                daocliente.Update(c);
-                break;
-                
+                a = guiadministrador.getAdministrador();
+                daoadministrador.Update(a);
+                guiadministrador.limpar();
+                break;   
             case "mostrar":
-                int id;
-                Cliente c = new Cliente();
-                id = guicliente.getID();
-                c = daocliente.Display(id);
-                guicliente.setCliente(c);
+                guiadministrador.consultar();
                 break;
-*/
         }
+
     }
 }

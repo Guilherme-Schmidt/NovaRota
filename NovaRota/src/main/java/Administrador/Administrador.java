@@ -12,11 +12,20 @@ import Funcionario.Funcionario;
  */
 public class Administrador extends Funcionario {
     private int idadministrador;
+    private String senha;
 
     public int getIDAdministrador() {
         return idadministrador;
     }
     public void setIDAdministrador(int idadministrador) {
         this.idadministrador = idadministrador;
+    }
+    
+    public String getSenha(){
+        return senha;
+    }
+    
+    public void setSenha(String senha){
+        this.senha = senha;
     }
 }

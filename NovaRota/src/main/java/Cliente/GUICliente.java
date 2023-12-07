@@ -4,8 +4,8 @@
  */
 package Cliente;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Felipe
  */
 public class GUICliente extends javax.swing.JFrame {
-
     /**
      * Creates new form GUICliente
      */
@@ -37,16 +36,35 @@ public class GUICliente extends javax.swing.JFrame {
         c.setEmail(JTFemail.getText());
         return c;
     }
-
-    public void setCliente(Cliente c) {
-        JTFid.setText(String.valueOf(c.getIDCliente()));
-        JTFnome.setText(c.getNome());
-        JTFemail.setText(c.getEmail());
-        JTFcpf.setText(String.valueOf(c.getCpf()));
-    }
     
     public int getID(){
         return Integer.parseInt(JTFid.getText());
+    }
+    
+    public void limpar(){
+        JTFid.setText("");
+        JTFnome.setText("");
+        JTFcpf.setText("");
+        JTFemail.setText("");
+    }
+
+    public void consultar() {
+        try {
+            DAOCliente objclientedao = new DAOCliente();
+            DefaultTableModel model = (DefaultTableModel) JTBcliente.getModel();
+            ArrayList<Cliente> lista = objclientedao.Display();
+            model.setRowCount(0);
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getIDCliente(),
+                    lista.get(num).getNome(),
+                    lista.get(num).getEmail(),
+                    lista.get(num).getCpf()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -58,31 +76,110 @@ public class GUICliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JLtitulo = new javax.swing.JLabel();
-        JLid = new javax.swing.JLabel();
-        JLnome = new javax.swing.JLabel();
-        JLemail = new javax.swing.JLabel();
-        JTFid = new javax.swing.JTextField();
-        JTFnome = new javax.swing.JTextField();
-        JTFemail = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         JBTcadastrar = new javax.swing.JButton();
         JBTdeletar = new javax.swing.JButton();
         JBTalterar = new javax.swing.JButton();
         JLcpf = new javax.swing.JLabel();
+        JLtitulo = new javax.swing.JLabel();
         JTFcpf = new javax.swing.JTextField();
+        JLid = new javax.swing.JLabel();
         JBTconsultar = new javax.swing.JButton();
+        JLnome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTBcliente = new javax.swing.JTable();
+        JLemail = new javax.swing.JLabel();
+        JTFid = new javax.swing.JTextField();
+        JTFnome = new javax.swing.JTextField();
+        JTFemail = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
 
-        JLtitulo.setText("Cliente");
+        jPanel1.setBackground(new java.awt.Color(36, 123, 160));
 
+        JBTcadastrar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTcadastrar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTcadastrar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTcadastrar.setText("Cadastrar");
+        JBTcadastrar.setName("cadastrar"); // NOI18N
+        JBTcadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTcadastrarActionPerformed(evt);
+            }
+        });
+
+        JBTdeletar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTdeletar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTdeletar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTdeletar.setText("Deletar");
+        JBTdeletar.setName("deletar"); // NOI18N
+        JBTdeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTdeletarActionPerformed(evt);
+            }
+        });
+
+        JBTalterar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTalterar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTalterar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTalterar.setText("Alterar");
+        JBTalterar.setName("alterar");
+        JBTalterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTalterarActionPerformed(evt);
+            }
+        });
+
+        JLcpf.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLcpf.setForeground(new java.awt.Color(247, 255, 247));
+        JLcpf.setText("CPF:");
+
+        JLtitulo.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
+        JLtitulo.setForeground(new java.awt.Color(247, 255, 247));
+        JLtitulo.setText("Gerenciamento de Cliente");
+
+        JLid.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLid.setForeground(new java.awt.Color(247, 255, 247));
         JLid.setText("ID Cliente:");
 
+        JBTconsultar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTconsultar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTconsultar.setForeground(new java.awt.Color(36, 123, 160));
+        JBTconsultar.setText("Consultar");
+        JBTconsultar.setName("mostrar"); // NOI18N
+        JBTconsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTconsultarActionPerformed(evt);
+            }
+        });
+
+        JLnome.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLnome.setForeground(new java.awt.Color(247, 255, 247));
         JLnome.setText("Nome:");
 
+        JTBcliente.setBackground(new java.awt.Color(247, 255, 247));
+        JTBcliente.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JTBcliente.setForeground(new java.awt.Color(36, 123, 160));
+        JTBcliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "E-Mail", "CPF"
+            }
+        ));
+        JTBcliente.setSelectionForeground(new java.awt.Color(36, 123, 160));
+        JTBcliente.setShowGrid(true);
+        jScrollPane1.setViewportView(JTBcliente);
+
+        JLemail.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLemail.setForeground(new java.awt.Color(247, 255, 247));
         JLemail.setText("E-Mail:");
 
         JTFid.setName("JTFid"); // NOI18N
@@ -92,128 +189,114 @@ public class GUICliente extends javax.swing.JFrame {
             }
         });
 
-        JBTcadastrar.setText("Cadastrar");
-        JBTcadastrar.setName("cadastrar"); // NOI18N
-        JBTcadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBTcadastrarActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("Impact", 3, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(247, 255, 247));
+        jLabel2.setText("NovaRota");
 
-        JBTdeletar.setText("Deletar");
-        JBTdeletar.setName("deletar"); // NOI18N
-        JBTdeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBTdeletarActionPerformed(evt);
-            }
-        });
+        jSeparator1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        JBTalterar.setText("Alterar");
-        JBTalterar.setName("alterar");
-        JBTalterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBTalterarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(JBTcadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTdeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTconsultar)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JLcpf)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(JLnome)
+                                            .addGap(19, 19, 19))
+                                        .addComponent(JLid, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(JLemail))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(JTFnome)
+                                            .addComponent(JTFemail)
+                                            .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(JLtitulo))
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JLtitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLid)
+                    .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLnome)
+                    .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLemail)
+                    .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLcpf)
+                    .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBTdeletar)
+                    .addComponent(JBTcadastrar)
+                    .addComponent(JBTalterar)
+                    .addComponent(JBTconsultar))
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
 
-        JLcpf.setText("CPF:");
-
-        JBTconsultar.setText("Consultar");
-        JBTconsultar.setName("mostrar"); // NOI18N
-        JBTconsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBTconsultarActionPerformed(evt);
-            }
-        });
-
-        JTBcliente.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(JTBcliente);
+        JBTcadastrar.getAccessibleContext().setAccessibleName("cadastrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(JLtitulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JLemail)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JLid)
-                                    .addComponent(JLnome))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(JTFemail)
-                                            .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(JTFcpf, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))))
-                            .addComponent(JLcpf)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(JBTcadastrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBTdeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JBTalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBTconsultar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(JLtitulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLid)
-                    .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLnome)
-                    .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLemail)
-                    .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JLcpf)
-                    .addComponent(JTFcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBTdeletar)
-                    .addComponent(JBTcadastrar)
-                    .addComponent(JBTalterar)
-                    .addComponent(JBTconsultar))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        JBTcadastrar.getAccessibleContext().setAccessibleName("cadastrar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -223,73 +306,24 @@ public class GUICliente extends javax.swing.JFrame {
     }//GEN-LAST:event_JTFidActionPerformed
 
     private void JBTcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTcadastrarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_JBTcadastrarActionPerformed
 
     private void JBTalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTalterarActionPerformed
-        Update();
+        
     }//GEN-LAST:event_JBTalterarActionPerformed
 
     private void JBTdeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTdeletarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_JBTdeletarActionPerformed
 
     private void JBTconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTconsultarActionPerformed
-       //consult();
+       
     }//GEN-LAST:event_JBTconsultarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    private void Update() {
-        int cli_id;
-        String cli_nome, cli_email;
-        long cli_cpf;
-
-        cli_id = Integer.parseInt(JTFid.getText());
-        cli_nome = JTFnome.getText();
-        cli_email = JTFemail.getText();
-        try {
-            cli_cpf = Long.parseLong(JTFcpf.getText());
-        } catch (NumberFormatException e) {
-            // Handle parsing error for cli_cpf, e.g., show an error message
-            // or set a default value.
-            cli_cpf = 0L; // Default value, you can choose an appropriate default.
-        }
-
-        Cliente objcliente = new Cliente();
-        objcliente.setIDCliente(cli_id);
-        objcliente.setNome(cli_nome);
-        objcliente.setEmail(cli_email);
-        objcliente.setCpf(cli_cpf);
-
-        DAOCliente objClienteDAO = new DAOCliente();
-        objClienteDAO.Update(objcliente);
-    }
-    /*
-    private void consult() {
-        try {
-            DAOCliente objclientedao = new DAOCliente();
-            Cliente objcliente = new Cliente();
-            
-            DefaultTableModel model = (DefaultTableModel) JTBcliente.getModel();
-
-            ArrayList<Cliente> lista = objclientedao.Display(this.getID());
-
-            for (int num = 0; num < lista.size(); num++) {
-                model.addRow(new Object[]{
-                    lista.get(num).getIDCliente(),
-                    lista.get(num).getNome(),
-                    lista.get(num).getEmail(),
-                    lista.get(num).getCpf()
-                });
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-   */
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -312,6 +346,7 @@ public class GUICliente extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUICliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -337,6 +372,9 @@ public class GUICliente extends javax.swing.JFrame {
     private javax.swing.JTextField JTFemail;
     private javax.swing.JTextField JTFid;
     private javax.swing.JTextField JTFnome;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

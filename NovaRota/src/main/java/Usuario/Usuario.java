@@ -5,12 +5,11 @@ package Usuario;
  *
  * @author Felipe
  */
-public class Usuario {
+public abstract class Usuario {
     private String nome;
     private long cpf;
     private String email;
-    private String senha;
-    
+
     public String getNome() {
         return nome;
     }
@@ -30,13 +29,5 @@ public class Usuario {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    
-    public String getSenha(){
-        return senha;
-    }
-    
-    public void setSenha(String senha){
-        this.senha = senha;
     }
 }
